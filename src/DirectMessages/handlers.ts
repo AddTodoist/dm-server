@@ -1,10 +1,10 @@
 import type { Project } from '@doist/todoist-api-typescript';
-import TEXTS, { generateConfigText, generateInitText, generateInvalidDMText } from './Texts.js';
-import { getTodoistProjects, getTodoistUserData, revokeAccessToken, addTodoistTask } from 'utils/todoist.js';
-import { getProjectNumFromMessage, getDefaultTaskContent, getUserCustomTaskContent } from 'utils/texts.js';
-import { decryptString } from 'DB/encrypts.js';
-import Bugsnag from 'bugsnag';
-import { getOriginalTweet, getThread, sendDirectMessage } from 'TWAPI';
+import TEXTS, { generateConfigText, generateInitText, generateInvalidDMText } from './texts';
+import { getTodoistProjects, getTodoistUserData, revokeAccessToken, addTodoistTask } from 'services/todoist-api';
+import { getProjectNumFromMessage, getDefaultTaskContent, getUserCustomTaskContent } from 'services/texts';
+import { decryptString } from 'services/crypto';
+import Bugsnag from 'services/bugsnag';
+import { getOriginalTweet, getThread, sendDirectMessage } from 'services/twitter-api';
 
 const handleConfig: DMHandlerFunction = async (message, user) => {
   const userId = message.sender_id;

@@ -1,5 +1,5 @@
-import UserInfo from 'DB';
-import { hashId } from 'DB/encrypts';
+import UserInfo from './mongoose-conection';
+import { hashId } from './crypto';
 
 /**
  * Finds a user by twitter id *(not hashed)*

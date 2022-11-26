@@ -1,6 +1,6 @@
-import { sendDirectMessage } from 'TWAPI';
-import { findUser } from 'utils/db';
-import TEXTS from './Texts';
+import { sendDirectMessage } from 'services/twitter-api';
+import { findUser } from 'services/database';
+import TEXTS from './texts';
 import { handleConfig, handleProject, handleDefaultDM, handleDelete, handleDeleteAll, handleInit, handleMain, handleHelp, handleThread } from './handlers';
 import { handleSettings } from './settings/handleSettings';
 

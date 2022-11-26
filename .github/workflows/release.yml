@@ -21,7 +21,6 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEPLOY_ENDPOINT_OAUTH: ${{ secrets.DEPLOY_ENDPOINT_OAUTH }}
           DEPLOY_ENDPOINT_WEBHOOKS: ${{ secrets.DEPLOY_ENDPOINT_WEBHOOKS }}
         run: npx semantic-release
 

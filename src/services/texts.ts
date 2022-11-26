@@ -1,4 +1,4 @@
-import { getTweetContent } from 'TWAPI';
+import { getTweetContent } from './twitter-api';
 
 /**
  * Recieves as parameter a user message that must match the `/project <number>` format

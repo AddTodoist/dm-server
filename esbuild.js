@@ -3,10 +3,7 @@ import fs from 'fs';
 const json = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 let deps = Object.keys(json.dependencies);
 
-const entryPoint =
-  process.env.IS_AUTOHOOK_SERVER
-    ? 'src/server-webhook.ts'
-    : 'src/server-oauth.ts';
+const entryPoint = 'src/index.ts';
 
 esbuild
   .build({

@@ -10,10 +10,7 @@ esbuild
     watch: true,
     platform: 'node',
     logLevel: 'info',
-    entryPoints: [
-      'src/server-webhook.ts',
-      'src/server-oauth.ts'
-    ],
+    entryPoints: [ 'src/index.ts' ],
     bundle: true,
     minify: false,
     format: 'esm',
