@@ -23,16 +23,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEPLOY_ENDPOINT_WEBHOOKS: ${{ secrets.DEPLOY_ENDPOINT_WEBHOOKS }}
         run: npx semantic-release
-
-  tweet:
-    needs: release
-    name: Tweet Release Info
-    runs-on: ubuntu-latest
-    steps:
-      - name: Tweet Release
-        uses: AddTodoist/tweet-on-release-action@v1.5.2
-        with:
-          consumer-key: ${{ secrets.CONSUMER_KEY }}
-          consumer-secret: ${{ secrets.CONSUMER_SECRET }}
-          access-token: ${{ secrets.ACCESS_TOKEN }}
-          access-token-secret: ${{ secrets.ACCESS_TOKEN_SECRET }}
