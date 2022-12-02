@@ -1,5 +1,8 @@
 import Bugsnag from '@bugsnag/js';
 
-Bugsnag.start(process.env.BUGSNAG_API_KEY || '');
+Bugsnag.start( {
+  apiKey: process.env.BUGSNAG_API_KEY || '',
+  appVersion: 'dm-service',
+});
 
 export default Bugsnag;

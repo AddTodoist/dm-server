@@ -1,5 +1,5 @@
 {
-  "name": "addtodoist-dm-server",
+  "name": "@addtodoist/dm-server",
   "type": "module",
   "version": "0.0.0-development",
   "scripts": {
@@ -17,18 +17,18 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "2.0.0",
-    "@semantic-release/changelog": "6.0.1",
+    "@semantic-release/changelog": "6.0.2",
     "@semantic-release/exec": "6.0.3",
     "@types/crypto-js": "4.1.1",
-    "@types/node": "18.11.9",
+    "@types/node": "18.11.10",
     "@types/twitter-autohook": "1.7.0",
-    "@typescript-eslint/eslint-plugin": "5.44.0",
-    "@typescript-eslint/parser": "5.44.0",
+    "@typescript-eslint/eslint-plugin": "5.45.0",
+    "@typescript-eslint/parser": "5.45.0",
     "@vitest/coverage-c8": "0.23.4",
     "commitizen": "4.2.5",
     "concurrently": "7.6.0",
     "cz-conventional-changelog": "3.3.0",
-    "esbuild": "0.15.15",
+    "esbuild": "0.15.16",
     "eslint": "8.28.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.26.0",
@@ -44,10 +44,10 @@
     "@addtodoist/twitter-autohook": "2.2.0",
     "@bugsnag/js": "7.18.0",
     "@doist/todoist-api-typescript": "2.1.2",
-    "axios": "1.1.3",
+    "axios": "1.2.0",
     "crypto-js": "4.1.1",
     "dotenv": "16.0.3",
-    "mongoose": "6.7.2",
+    "mongoose": "6.7.5",
     "twitter-api-v2": "1.12.9"
   },
   "engines": {
