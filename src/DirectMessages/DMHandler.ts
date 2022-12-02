@@ -1,6 +1,6 @@
 import { sendDirectMessage } from 'services/twitter-api';
 import { findUser } from 'services/database';
-import TEXTS from './texts';
+import { getRandomUserNotFoundMessage } from './texts';
 import { handleConfig, handleProject, handleDefaultDM, handleDelete, handleDeleteAll, handleInit, handleMain, handleHelp, handleThread } from './handlers';
 import { handleSettings } from './settings/handleSettings';
 
@@ -12,7 +12,7 @@ function withUser() {
       const userId = message.sender_id;
 
       const user = await findUser(userId);
-      if (!user) return sendDirectMessage(userId, TEXTS.USER_NOT_FOUND);
+      if (!user) return sendDirectMessage(userId, getRandomUserNotFoundMessage());
 
       return mainFunc(message, user);
     };

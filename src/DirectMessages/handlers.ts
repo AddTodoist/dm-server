@@ -1,5 +1,5 @@
 import type { Project } from '@doist/todoist-api-typescript';
-import TEXTS, { generateConfigText, generateInitText, generateInvalidDMText } from './texts';
+import TEXTS, { generateConfigText, generateInitText, generateInvalidDMText, getRandomAddedToAccountText } from './texts';
 import { getTodoistProjects, getTodoistUserData, revokeAccessToken, addTodoistTask } from 'services/todoist-api';
 import { getProjectNumFromMessage, getDefaultTaskContent, getUserCustomTaskContent } from 'services/texts';
 import { decryptString } from 'services/crypto';
@@ -123,7 +123,7 @@ const handleDefaultDM: DMHandlerFunction = async (message, user) => {
   
   if (user.noResponse) return;
 
-  sendDirectMessage(userId, TEXTS.ADDED_TO_ACCOUNT);
+  sendDirectMessage(userId, getRandomAddedToAccountText());
 };
   
 const handleInvalidDM = async (message) => {
@@ -171,8 +171,10 @@ const handleMain: DMHandlerFunction = async (message: TWDirectMessage, user) => 
     Bugsnag.notify(e);
     return sendDirectMessage(userId, TEXTS.BAD_TOKEN + '\nErr: TDS_ERROR');
   }
+
+  if (user.noResponse) return;
   
-  sendDirectMessage(userId, TEXTS.ADDED_TO_ACCOUNT);
+  sendDirectMessage(userId, getRandomAddedToAccountText());
 };
 
 const handleThread: DMHandlerFunction = async (message: TWDirectMessage, user) => {
@@ -214,7 +216,9 @@ const handleThread: DMHandlerFunction = async (message: TWDirectMessage, user) =
     return sendDirectMessage(userId, TEXTS.BAD_TOKEN + '\nErr: TDS_ERROR');
   }
 
-  sendDirectMessage(userId, TEXTS.ADDED_TO_ACCOUNT);
+  if (user.noResponse) return;
+  
+  sendDirectMessage(userId, getRandomAddedToAccountText());
 
 };
 
