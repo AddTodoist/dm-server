@@ -2,16 +2,18 @@
  * This module includes tools to interact with the Todoist API.
  */
 
-import axios from 'axios';
 import { TodoistApi } from '@doist/todoist-api-typescript';
 
 export const getTodoistUserData = async (token: string) => {
-  const { data } = await axios.post('https://api.todoist.com/sync/v9/sync',
-    { sync_token: '*', resource_types: ['user'] },
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-    
-  const {user} = data;
+  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
+  const body = JSON.stringify({ sync_token: '*', resource_types: '["user"]' });
+  const requestConfig = { method: 'POST', headers, body };
+  
+  const { user } = await fetch('https://api.todoist.com/sync/v9/sync', requestConfig ).then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Something went wrong getting your Todoist user data');
+  });
+
   return user;
 };
 
@@ -35,11 +37,16 @@ export const getTodoistProjects = (token: string) => {
   
 export const revokeAccessToken = async (token: string) => {
   const revokeUrl = 'https://api.todoist.com/sync/v9/access_tokens/revoke';
-  const { status } = await axios.post(revokeUrl, {
-    client_id: process.env.TODOIST_CLIENT_ID,
-    client_secret: process.env.TODOIST_CLIENT_SECRET,
-    access_token: token,
-  });
+
+  const status = await fetch(revokeUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 
+      client_id: process.env.TODOIST_CLIENT_ID,
+      client_secret: process.env.TODOIST_CLIENT_SECRET,
+      access_token: token,
+    })
+  }).then(res =>  res.status);
   
   if (status === 204) return true;
   return false;

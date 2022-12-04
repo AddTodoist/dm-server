@@ -44,14 +44,13 @@
     "@addtodoist/twitter-autohook": "2.2.0",
     "@bugsnag/js": "7.18.0",
     "@doist/todoist-api-typescript": "2.1.2",
-    "axios": "1.2.0",
     "crypto-js": "4.1.1",
     "dotenv": "16.0.3",
     "mongoose": "6.7.5",
     "twitter-api-v2": "1.12.9"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "repository": {
     "type": "git",
