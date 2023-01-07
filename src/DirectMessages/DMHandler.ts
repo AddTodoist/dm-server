@@ -12,7 +12,10 @@ function withUser() {
       const userId = message.sender_id;
 
       const user = await findUser(userId);
-      if (!user) return sendDirectMessage(userId, getRandomUserNotFoundMessage());
+      if (!user) return sendDirectMessage(userId, getRandomUserNotFoundMessage(), {
+        type: 'options',
+        options: [ { label: '/init' } ]
+      });
 
       return mainFunc(message, user);
     };

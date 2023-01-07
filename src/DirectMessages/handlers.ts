@@ -55,7 +55,12 @@ const handleProject: DMHandlerFunction = async (message, user) => {
   const { text } = message.message_data;
   const projectNum = getProjectNumFromMessage(text);
   
-  if (projectNum === null) return sendDirectMessage(userId, TEXTS.INVALID_PROJECT_NUM);
+  if (projectNum === null) return sendDirectMessage(userId, TEXTS.INVALID_PROJECT_NUM, {
+    type: 'options',
+    options: [
+      { label: '/project 0' }
+    ]   
+  });
   
   const { todoistToken, todoistProjectId: projectId } = user;
   const apiToken = decryptString(todoistToken);
@@ -77,6 +82,13 @@ const handleProject: DMHandlerFunction = async (message, user) => {
     return sendDirectMessage(
       userId,
       `${TEXTS.INVALID_PROJECT_NUM}Current project is:\n${currentProject}`,
+      {
+        type: 'options',
+        options: [
+          { label: '/project 0' },
+          { label: `/project ${projects.length - 1}` }
+        ]
+      }
     );
   }
   
@@ -128,7 +140,13 @@ const handleDefaultDM: DMHandlerFunction = async (message, user) => {
   
 const handleInvalidDM = async (message) => {
   const userId = message.sender_id;
-  sendDirectMessage(userId, generateInvalidDMText(message.sender_name));
+  sendDirectMessage(userId, generateInvalidDMText(message.sender_name), {
+    type: 'options',
+    options: [
+      { label: '/help' },
+      { label: '/init' },
+    ]
+  });
 };
 
 const handleInit: DMHandlerFunction = async (message) => {
@@ -138,7 +156,14 @@ const handleInit: DMHandlerFunction = async (message) => {
 
 const handleHelp: DMHandlerFunction = async (message) => {
   const userId = message.sender_id;
-  sendDirectMessage(userId, TEXTS.HELP);
+  sendDirectMessage(userId, TEXTS.HELP, {
+    type: 'options',
+    options: [
+      { label: '/init' },
+      { label: '/project 0' },
+      { label: '/config' },
+    ]
+  });
 };
 
 const handleMain: DMHandlerFunction = async (message: TWDirectMessage, user) => {

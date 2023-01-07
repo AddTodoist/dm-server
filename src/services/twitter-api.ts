@@ -1,4 +1,4 @@
-import { TwitterApi } from 'twitter-api-v2';
+import { MessageCreateQuickReplyV1, TwitterApi } from 'twitter-api-v2';
 import Bugsnag from './bugsnag';
 
 const userClient = new TwitterApi({
@@ -8,11 +8,12 @@ const userClient = new TwitterApi({
   accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET || '',
 });
 
-export const sendDirectMessage = async (userId: string, message: string) => {
+export const sendDirectMessage = async (userId: string, message: string, quick_reply?: MessageCreateQuickReplyV1) => {
   try {
     await userClient.v1.sendDm({
       recipient_id: userId,
       text: message,
+      quick_reply
     });
   } catch (e) {
     Bugsnag.notify(e);
