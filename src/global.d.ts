@@ -75,6 +75,11 @@ declare global {
      * The label to add to the task when added from normal tweet
      */
     tweetLabel?: string | null;
+    /**
+     * The todoist id of the user
+     * 
+    */
+    todoistId: string;
   }
 
 }

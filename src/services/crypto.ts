@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 
-const secret = process.env.DB_SECRET || null;
+const secret = process.env.DB_SECRET;
 if (!secret) throw new Error('DB_SECRET is not set');
 
 export const hashId = (id: string) => CryptoJS.SHA256(id).toString();

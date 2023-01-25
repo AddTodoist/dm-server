@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema<IUserInfo>({
   noResponse: { type: Boolean, required: false },
   threadLabel: { type: String, required: false },
   tweetLabel: { type: String, required: false },
+  todoistId: { type: String, required: true },
 });
 
 const UserInfo = mongoose.model<IUserInfo>('users', userSchema);
