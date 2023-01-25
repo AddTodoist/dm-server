@@ -1,4 +1,3 @@
-import type { Project } from '@doist/todoist-api-typescript';
 import TEXTS, { generateConfigText, generateInitText, generateInvalidDMText, getRandomAddedToAccountText } from './texts';
 import { getTodoistProjects, getTodoistUserData, revokeAccessToken, addTodoistTask } from 'services/todoist-api';
 import { getProjectNumFromMessage, getDefaultTaskContent, getUserCustomTaskContent } from 'services/texts';
@@ -11,18 +10,29 @@ const handleConfig: DMHandlerFunction = async (message, user) => {
 
   const { todoistToken, todoistProjectId: projectId } = user;
   const apiToken = decryptString(todoistToken);
-  
-  try {
-    const projects = await getTodoistProjects(apiToken);
-    const projectName = projects.find((p) => p.id === projectId)?.name;
-  
-    const {email, full_name: username} = await getTodoistUserData(apiToken);
-  
-    sendDirectMessage(userId, generateConfigText({email, username, projectName, projectId}));
-  } catch (e) {
-    Bugsnag.notify(e);
-    return sendDirectMessage(userId, TEXTS.BAD_TOKEN + '\nErr: CONFIG_TDS_ERROR');
+
+  const projects = await getTodoistProjects(apiToken);
+  const projectName = projects.find((p) => p.id === projectId)?.name;
+
+  if (!projectName) {
+    return sendDirectMessage(userId, 'Couldn\'t find your project. Please, try again later.');
   }
+
+  const { email, username, error, errorCode } = await getTodoistUserData(apiToken);
+
+  if (error) {
+    if (errorCode >= 500) {
+      return sendDirectMessage(userId, 'Couldn\'t connect to Todoist. Please, try again later.', {
+        type: 'options',
+        options: [ { label: '/config' } ]
+      });
+    }
+    return sendDirectMessage(userId, TEXTS.BAD_TOKEN + '\nErr: CONFIG_TDS_ERROR', {
+      type: 'options', options: [ { label: '/init' } ]
+    });
+  }
+  
+  sendDirectMessage(userId, generateConfigText({email, username, projectName, projectId}));
 };
   
 const handleDelete: DMHandlerFunction = async (message) => {
@@ -65,13 +75,13 @@ const handleProject: DMHandlerFunction = async (message, user) => {
   const { todoistToken, todoistProjectId: projectId } = user;
   const apiToken = decryptString(todoistToken);
   
-  let projects: Project[];
-  try {
-    projects = await getTodoistProjects(apiToken);
-  } catch (e) {
-    console.log(e);
-    Bugsnag.notify(e);
-    return sendDirectMessage(userId, TEXTS.BAD_TOKEN + '\nErr: TDS_ERROR');
+  const projects = await getTodoistProjects(apiToken);
+
+  if (projects.length === 0) {
+    return sendDirectMessage(userId, '🔴 Something went wrong getting your projects. Please, try again later.', {
+      type: 'options',
+      options: [ { label: `/project ${projectNum}`}, { label: '/init' } ]
+    });
   }
   
   const currentProject = projects.find(

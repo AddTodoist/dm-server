@@ -3,18 +3,27 @@
  */
 
 import { TodoistApi } from '@doist/todoist-api-typescript';
+import Bugsnag from 'services/bugsnag';
 
 export const getTodoistUserData = async (token: string) => {
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
   const body = JSON.stringify({ sync_token: '*', resource_types: '["user"]' });
   const requestConfig = { method: 'POST', headers, body };
   
-  const { user } = await fetch('https://api.todoist.com/sync/v9/sync', requestConfig ).then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Something went wrong getting your Todoist user data');
-  });
+  try {
+    const { user } = await fetch('https://api.todoist.com/sync/v9/sync', requestConfig ).then(res => {
+      if (res.ok) return res.json();
+      Promise.reject(res);
+    });
 
-  return user;
+    const { email, full_name: username } = user;
+    return { email, username } as const;
+  } catch (e) {
+    Bugsnag.notify(e);
+    console.log({ error: await e.json(), status: e.status });
+    return { error: true, errorCode: e.status } as const;
+  }
+  
 };
 
 export const addTodoistTask: TodoistTaskAdder = (task) => {
@@ -30,9 +39,15 @@ export const addTodoistTask: TodoistTaskAdder = (task) => {
   });
 };
 
-export const getTodoistProjects = (token: string) => {
-  const tdsClient = new TodoistApi(token);
-  return tdsClient.getProjects();
+export const getTodoistProjects = async (token: string) => {
+  try {
+    const tdsClient = new TodoistApi(token);
+    const projects = await tdsClient.getProjects();
+    return projects;
+  } catch (e) {
+    return [];
+  }
+
 };
   
 export const revokeAccessToken = async (token: string) => {
