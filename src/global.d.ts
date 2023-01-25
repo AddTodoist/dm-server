@@ -10,6 +10,11 @@ declare global {
       TWITTER_CONSUMER_SECRET: string;
       TWITTER_ACCESS_TOKEN: string;
       TWITTER_ACCESS_TOKEN_SECRET: string;
+      /**
+       * The webhook url for autohook. In production, this is set to the url of the server.
+       * In development, it is undefined and autohook will use ngrok to create a tunnel
+       */
+      AUTOHOOK_URL: string | undefined;
       BUGSNAG_API_KEY: string;
       TW_ACC_ID: string;
       MONGO_DB: string;
