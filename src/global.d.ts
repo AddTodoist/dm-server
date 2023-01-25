@@ -2,6 +2,20 @@ import type { Task } from '@doist/todoist-api-typescript';
 import type { Document } from 'mongoose';
 
 declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      TODOIST_CLIENT_ID: string;
+      TODOIST_CLIENT_SECRET: string;
+      TWITTER_CONSUMER_KEY: string;
+      TWITTER_CONSUMER_SECRET: string;
+      TWITTER_ACCESS_TOKEN: string;
+      TWITTER_ACCESS_TOKEN_SECRET: string;
+      BUGSNAG_API_KEY: string;
+      TW_ACC_ID: string;
+      MONGO_DB: string;
+      DB_SECRET: string;
+    }
+  }
   type DBUserInstance = Document<unknown, any, IUserInfo> & IUserInfo & Required<{ _id: string }>
 
   type URLEntity = {
