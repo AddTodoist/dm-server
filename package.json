@@ -27,9 +27,9 @@
     "concurrently": "7.6.0",
     "cz-conventional-changelog": "3.3.0",
     "esbuild": "0.16.15",
-    "eslint": "8.32.0",
+    "eslint": "8.33.0",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "2.27.5",
     "nodemon": "2.0.20",
     "semantic-release": "20.1.0",
     "ts-node": "10.9.1",
@@ -37,12 +37,12 @@
   },
   "dependencies": {
     "@addtodoist/twitter-autohook": "2.2.0",
-    "@bugsnag/js": "7.18.0",
+    "@bugsnag/js": "7.19.0",
     "@doist/todoist-api-typescript": "2.1.2",
     "crypto-js": "4.1.1",
     "dotenv": "16.0.3",
-    "mongoose": "6.8.4",
-    "twitter-api-v2": "1.14.0"
+    "mongoose": "6.9.0",
+    "twitter-api-v2": "1.14.1"
   },
   "engines": {
     "node": ">=18"
