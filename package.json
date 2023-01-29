@@ -15,7 +15,7 @@
   "author": "David Jiménez <dubisdev@gmail.com> (https://dubis.dev)",
   "license": "SEE LICENSE IN LICENSE.md",
   "devDependencies": {
-    "@jgoz/esbuild-plugin-typecheck": "2.0.0",
+    "@jgoz/esbuild-plugin-typecheck": "3.0.1",
     "@semantic-release/changelog": "6.0.2",
     "@semantic-release/exec": "6.0.3",
     "@types/crypto-js": "4.1.1",
@@ -26,7 +26,7 @@
     "commitizen": "4.3.0",
     "concurrently": "7.6.0",
     "cz-conventional-changelog": "3.3.0",
-    "esbuild": "0.16.15",
+    "esbuild": "0.17.5",
     "eslint": "8.33.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.27.5",
