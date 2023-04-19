@@ -23,8 +23,8 @@ export const sendDirectMessage = async (userId: string, message: string, quick_r
 };
 
 export const getTweetContent = async (url: string) => {
-  const id = url.split('/').pop() || '';
   try {
+    const id = (new URL(url)).pathname.split('/').pop() || '';
     const tweet = await userClient.v2.singleTweet(id);
     const text = getTextWithoutUrls(tweet.data.text);
 
